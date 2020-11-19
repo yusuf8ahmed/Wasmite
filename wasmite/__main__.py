@@ -29,9 +29,19 @@ def wasm_module(path):
     exported = instance.exports
     return exported
 
+def types(*args):
+    return list(args)
+
+def result(*args):
+    return list(args)
+
 class WasmiteCase(unittest.TestCase):
     """Wasmite Extension of unittest.TestCase"""
-    pass
+    def assertTypes(self, func, types):
+        assert func.type.params == types
+    
+    def assertResult(self, func, result):
+        assert func.type.results == result
 
 class TestWasm(WasmiteCase):
     pass
