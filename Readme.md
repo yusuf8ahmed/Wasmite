@@ -5,7 +5,7 @@
 ### What is the Wasmite project
 As Wasm is the future is the future of the web. I decide to create Wasmite a python package for unit-testing your wasm or wat code. Wasmite is based on standard library package **unittest** and its documentation can be found here: [documentation for unittest](https://docs.python.org/3/library/unittest.html).
 
-Wasmite looks for tests in python files whose names start with test_*.py and runs every test_* function it discovers. The testing folder has more examples.
+Wasmite looks for tests in python files whose names start with test_\*.py and runs every test_\* function it discovers. The testing folder has more examples.
 
 Here is a simple example of :
 ```python
