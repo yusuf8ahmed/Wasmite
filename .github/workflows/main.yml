@@ -39,5 +39,5 @@ jobs:
           python -m venv env
           pip install -e .
           cd testing
-         python -m unittest test_wasm.py
+          python -m unittest test_wasm.py
           
