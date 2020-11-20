@@ -3,6 +3,7 @@ from wasmer import wat2wasm, wasm2wat, Type
 from wasmer import Function, Global, Memory, Table
 from wasmer import FunctionType, GlobalType
 from wasmer_compiler_cranelift import Compiler
+# cranelift was chosen as it is has fast compilation times, fast execution times
 import unittest
 import loguru
 import pathlib
@@ -14,6 +15,9 @@ F64 = Type.F64
 V128 = Type.V128
 EXTERN_REF = Type.EXTERN_REF
 FUNC_REF = Type.FUNC_REF
+
+def main():
+    unittest.main(verbosity=2)
 
 def wat_module(path):
     wat_content = open(path, 'r').read()
@@ -48,5 +52,3 @@ class TestWasm(WasmiteCase):
 
 class TestWat(WasmiteCase):
     pass
-    
-    

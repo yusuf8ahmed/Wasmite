@@ -22,11 +22,6 @@ setup(
     long_description=read('Readme.md'),
     long_description_content_type="text/markdown",
     install_requires=['loguru', "wasmer", "wasmer-compiler-cranelift"],
-    entry_points ={ 
-        'console_scripts': [ 
-            'wasmite = wasmite.__main__:main'
-        ] 
-    },
     python_requires='>=3',
     zip_safe = False
 )
