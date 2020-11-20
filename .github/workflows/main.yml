@@ -34,7 +34,7 @@ jobs:
         run: |
           python -V
             
-      - name: Confirm Python Version is 3.8.*
+      - name: Create env, install package locally and do testing
         run: |
           python -m venv env
           pip install -e .
