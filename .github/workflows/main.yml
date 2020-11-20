@@ -29,6 +29,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a testing Section
         run: |
-          python install -e .
+          pip install -e .
           cd testing
           python -m unittest test_wasm.py
