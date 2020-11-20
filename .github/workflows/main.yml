@@ -30,6 +30,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       # Runs a set of commands using the runners shell
-      - name: Run a testing Section
+      - name: Confirm Python Version is 3.8.*
         run: |
           python -V
+            
+      - name: Confirm Python Version is 3.8.*
+        run: |
+          python -m venv env
+          pip install -e .
+          cd testing
+         python -m unittest test_wasm.py
+          
