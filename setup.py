@@ -19,7 +19,7 @@ setup(
     author="Yusuf Ahmed",
     author_email="yusufahmed172@gmail.com",
     description="Wasm is the future but now it has a testing toolchain",
-    long_description=read('README.md'),
+    long_description=read('Readme.md'),
     long_description_content_type="text/markdown",
     install_requires=['loguru', "wasmer", "wasmer-compiler-cranelift"],
     entry_points ={ 
