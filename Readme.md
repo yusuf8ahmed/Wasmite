@@ -9,6 +9,13 @@ As WebAssembly is the future of the web. I decide to create Wasmite a python pac
 
 Wasmite looks for tests in python files whose names start with test_\*.py and runs every test_\* function it discovers. The testing folder has more examples.
 
+### Installation
+
+This project requires python 3 and doesn't support 3.9
+```bash
+pip install wasmite
+```
+
 ### project goals:
 
 - [x] import wasm or wat module successfully

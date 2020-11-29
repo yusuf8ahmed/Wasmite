@@ -19,7 +19,7 @@ class Test(wasmite.TestWasm):
         
     def test_sub_notequal(self):
         # test the "sub" function in test.wasm
-        result = self.exports.sub(5,2) # 2-2 = 0 != -1
+        result = self.exports.sub(5,2) # 5-2 = 3 != -1
         self.assertNotEqual(result, -1)
         
     def test_args_add(self):

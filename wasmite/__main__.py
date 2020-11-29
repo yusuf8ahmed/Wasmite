@@ -21,19 +21,19 @@ result = lambda *result: list(result)
 
 def main():
     unittest.main(verbosity=2)
-    
-def load_bytes_module(store, wasm_bytes):
+
+def load_bytes_module(store, wasm_bytes, import_object=None):
     module = Module(store, wasm_bytes)
     instance = Instance(module)
     return instance.exports
 
-def wat_module(path):
+def wat_module(path, import_object=None):
     store = Store
     wasm_bytes = wat2wasm(open(path, 'r').read())
     exported = load_bytes_module(store, wasm_bytes)
     return exported
 
-def wasm_module(path):
+def wasm_module(path, import_object=None):
     store = Store(engine.JIT(Compiler))
     wasm_bytes = open(path, 'rb').read()
     exported = load_bytes_module(store, wasm_bytes)
