@@ -10,3 +10,6 @@ class Test(wasmite.TestWat):
     def test_sub(self):
         result = self.exports.sub(1,2)
         self.assertEqual(result, -1)
+        
+if __name__ == "__main__":
+    wasmite.main()

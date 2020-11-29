@@ -34,6 +34,3 @@ class Test(wasmite.TestWasm):
         
 if __name__ == "__main__":
     wasmite.main()
-        
-        
-        
