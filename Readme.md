@@ -9,6 +9,8 @@ As WebAssembly is the future of the web. I decide to create Wasmite a python pac
 
 Wasmite looks for tests in python files whose names start with test_\*.py and runs every test_\* function it discovers. The testing folder has more examples.
 
+**Having any problems or questions create a [issue](https://github.com/yusuf8ahmed/Wasmite/issues/new), i will be happy to help :)**
+
 ### Installation
 
 This project requires python 3 and doesn't support 3.9
@@ -34,14 +36,14 @@ Here is a simple example of :
 ```python
 #in testing/test_wasm.py
 import wasmite
-from wasmite import types, result
+from wasmite import FuncType
 from wasmite import I32, I64
 
 # create a Test class the inherits wasmite.TestWasm
 class Test(wasmite.TestWasm):
-    # create a variable the hold all the module from a specific wasm file.
+    # create a variable the hold all the functions from a specific wasm file.
     exports = wasmite.wasm_module("test.wasm")
-    # create any amount of function that test you functionality
+    # create any amount of function that test you codes functionality
     def test_add(self):
         # test the "add" function in test.wasm
         result = self.exports.add(1,2)
@@ -49,24 +51,21 @@ class Test(wasmite.TestWasm):
         
     def test_sub(self):
         # test the "sub" function in test.wasm
-        result = self.exports.sub(2,2) # 2-2 = 0 == -1 => False
+        result = self.exports.sub(2,2) # 2-2 = 0 != -1
         self.assertEqual(result, -1)
-
+        
     def test_sub_notequal(self):
-        # test the "sub" function in test.wasm using assertNotEqual
-        result = self.exports.sub(5,2) # 5-2 = 3 != -1 => True
+        # test the "sub" function in test.wasm
+        result = self.exports.sub(5,2) # 5-2 = 3 != -1
         self.assertNotEqual(result, -1)
 
     def test_args_add(self):
-        # check that the param types of the function "add" is I32, I32
+        # check the types for results and parameter of the function "add"
+        # param is I32, I32 and result is I32
         add_function = self.exports.add
-        self.assertTypes(add_function, types(I32, I32))
-
-    def test_result_add(self):
-        # check that the return types of the function "add" is I32
-        add_function = self.exports.add
-        self.assertResult(add_function, result(I32))
+        self.checkFunctionTypes(add_function, FuncType([I32, I32], [I32])) # result will fail
         
+# Hi don't forget to add me         
 if __name__ == "__main__":
     wasmite.main()
 ```
@@ -78,7 +77,6 @@ $ python test_wasm.py
 
 test_add (__main__.Test) ... ok
 test_args_add (__main__.Test) ... ok
-test_result_add (__main__.Test) ... ok
 test_sub (__main__.Test) ... FAIL
 test_sub_notequal (__main__.Test) ... ok
 
@@ -91,8 +89,7 @@ Traceback (most recent call last):
 AssertionError: 0 != -1
 
 ----------------------------------------------------------------------
-Ran 5 tests in 0.001s
+Ran 4 tests in 0.001s
 
 FAILED (failures=1)
 ```
-

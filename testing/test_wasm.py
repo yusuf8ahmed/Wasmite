@@ -1,5 +1,5 @@
 import wasmite
-from wasmite import types, result
+from wasmite import FuncType
 from wasmite import I32, I64
 
 # create a Test class the inherits wasmite.TestWasm
@@ -21,16 +21,13 @@ class Test(wasmite.TestWasm):
         # test the "sub" function in test.wasm
         result = self.exports.sub(5,2) # 5-2 = 3 != -1
         self.assertNotEqual(result, -1)
-        
+
     def test_args_add(self):
-        # check that the param types of the function "add" is I32, I32
+        # check the types for results and parameter of the function "add"
+        # param is I32, I32 and result is I32
         add_function = self.exports.add
-        self.assertTypes(add_function, types(I32, I32))
+        self.checkFunctionTypes(add_function, FuncType([I32, I32], [I32])) # result will fail
         
-    def test_result_add(self):
-        # check that the return types of the function "add" is I32
-        add_function = self.exports.add
-        self.assertResult(add_function, result(I32))
-        
+# Hi don't forget to add me         
 if __name__ == "__main__":
     wasmite.main()
