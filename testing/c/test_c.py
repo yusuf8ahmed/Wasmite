@@ -1,8 +1,6 @@
-from wasmite import Module, WasmiteCase, main
+from wasmite import WasiModule, WasmiteCase, main
 from wasmite import FuncType, Function
 from wasmite import I32, I64
-
-from wasmite import WasiModule
 
 
 class Test(WasmiteCase):
