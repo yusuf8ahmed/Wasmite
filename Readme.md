@@ -24,15 +24,16 @@ pip install wasmite
 - [x] Access functions within module 
 - [x] Type checking of parameters and the result of functions
 - [x] Release to **PyPi** for public to use
-- [ ] Allow WebAssembly to import and use 
-    - Python functions
-    - Global Instances
-    - Memory Instances
-- [ ] More complex examples in testing folder
+- [x] Allow WebAssembly ... 
+    - [x] Import Python functions
+    - [x] Import Global Instances
+    - [x] Import Memory Instances
+- [x] More complex examples in testing folder
 - [ ] Receive community on how to improve
 
+Examples:
 
-Here is a simple example:
+<!-- 
 ```python
 #in testing/test_wasm.py
 import wasmite
@@ -68,7 +69,10 @@ class Test(wasmite.TestWasm):
 # Hi don't forget to add me         
 if __name__ == "__main__":
     wasmite.main()
-```
+``` 
+-->
+
+<!-- 
 Then you can then run this test like so:
 ```bash
 # make sure you are in /testing
@@ -92,4 +96,5 @@ AssertionError: 0 != -1
 Ran 4 tests in 0.001s
 
 FAILED (failures=1)
-```
+``` 
+-->
