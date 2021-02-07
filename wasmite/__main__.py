@@ -2,7 +2,7 @@ from wasmer import engine, Store, Instance
 from wasmer import wat2wasm, wasm2wat, ImportObject
 from wasmer import Function, Global, Memory, Table
 from wasmer import Value
-from wasmer import Type as WType, Module as WModule,
+from wasmer import Type as WType, Module as WASMModule
 from wasmer_compiler_cranelift import Compiler
 from typing import NamedTuple, List, Type
 from .extension import CheckFunction, get_types
@@ -43,8 +43,8 @@ class Module:
         
     def start(self):
         """ start module and export functions """
-        # WAModule is 'Module' from the wasmer library
-        module = WModule(self.store, self.wasm_bytes)
+        # WASMModule is 'Module' from the wasmer library
+        module = WASMModule(self.store, self.wasm_bytes)
         if self._IMPORT_FLAG:
             instance = Instance(module, self.import_object)
         else:

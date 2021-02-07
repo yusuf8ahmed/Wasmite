@@ -33,10 +33,10 @@ pip install wasmite
 
 Examples:
 
-* [c++](https://github.com/yusuf8ahmed/Wasmite/tree/master/testing/c%2B%2B)
-* [c](https://github.com/yusuf8ahmed/Wasmite/tree/master/testing/c)
-* [wasm](https://github.com/yusuf8ahmed/Wasmite/tree/master/testing/wasm)
-* [wat](https://github.com/yusuf8ahmed/Wasmite/tree/master/testing/wat)
+* [c++](https://github.com/yusuf8ahmed/Wasmite/tree/master/examples/c%2B%2B)
+* [c](https://github.com/yusuf8ahmed/Wasmite/tree/master/examples/c)
+* [wasm](https://github.com/yusuf8ahmed/Wasmite/tree/examples/testing/wasm)
+* [wat](https://github.com/yusuf8ahmed/Wasmite/tree/examples/testing/wat)
 
 <!-- 
 ```python

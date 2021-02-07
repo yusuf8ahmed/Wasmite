@@ -2,14 +2,13 @@ from operator import attrgetter
 from os import path
 from setuptools import setup, find_packages
 
+VERSION = "0.1.5"
+
 def read(fname):
     return open(path.join(path.dirname(__file__), fname)).read()
 
 def from_here(relative_path):
     return path.join(path.dirname(__file__), relative_path)
-
-with open('requirements.txt') as f: 
-    requirements = f.readlines() 
 
 # source env/bin/activate
 
@@ -20,7 +19,7 @@ with open('requirements.txt') as f:
 
 setup(
     name="wasmite",
-    version="0.1.5",
+    version=VERSION,
     author="Yusuf Ahmed",
     author_email="yusufahmed172@gmail.com",
     packages=find_packages(exclude=['env', ".vscode"]),
