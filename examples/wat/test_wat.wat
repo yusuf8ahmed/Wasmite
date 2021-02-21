@@ -1,11 +1,10 @@
-;; test.wat is the same as test.wasm
-
+;; test.wat
 (module
   (import "math" "sum" (func $sum (param i32 i32) (result i32)))
   (import "math" "seven" (global $seven (mut i32)))
-  (func (export "read_g") (result i32)
+  (func (export "read_global") (result i32)
     global.get $seven)
-  (func (export "write_g") (param $lhs i32)
+  (func (export "write_global") (param $lhs i32)
     get_local $lhs
     global.set $seven)
   (type $t0 (func (param i32 i32) (result i32)))

@@ -1,24 +1,23 @@
-from wasmer import engine, wasi, Store, Module, Instance
+from wasmer import engine, wasi, Store, Module
 from wasmer_compiler_cranelift import Compiler
 
-class WasiModule:
-    """ Complied some code from c, c++ or rust please use me """
-    def __init__(self, path):
-        store = Store(engine.JIT(Compiler))
-        module = Module(store, open(path, 'rb').read())
-        wasi_version = wasi.get_version(module, strict=True)
-        wasi_env = wasi.StateBuilder('test-program').finalize()
-        import_object = wasi_env.generate_import_object(store, wasi_version)
-        self.instance = Instance(module, import_object)
-        self.exports = self.instance.exports
-        
+from .globals import BaseModule
+
+
+class WasiModule(BaseModule):
+    TYPE = "WASI"
+
+    def _import_module(self):
+        """ import a module: implemented in subclasses """
+        self._IMPORT_FLAG = True
+        self.store = Store(engine.JIT(Compiler))
+        self.wasm_bytes = open(self.path, "rb").read()
+        self.module = Module(self.store, self.wasm_bytes)
+
+        wasi_version = wasi.get_version(self.module, strict=True)
+        wasi_env = wasi.StateBuilder("test-program").finalize()
+        self.import_object = wasi_env.generate_import_object(self.store, wasi_version)
+
     def run_main(self):
-        try:
-            # Here we go, let's start main function (the program).
-            print(f"\nMain function(output):")
-            self.instance.exports._start()
-        except RuntimeError as e:
-            if not (str(e) == "RuntimeError: WASI exited with code: 0"):   
-                msg = f"WASI exited uncleanly: {str(e)}"
-                msg = self._formatMessage(msg, "WASI exited")
-                raise self.failureException(msg)     
+        """ could raise runtime Error """
+        self.exports._start()

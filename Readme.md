@@ -24,10 +24,10 @@ pip install wasmite
 - [x] Access functions within module 
 - [x] Type checking of parameters and the result of functions
 - [x] Release to **PyPi** for public to use
-- [x] Allow WebAssembly ... 
-    - [x] Import Python functions
-    - [x] Import Global Instances
-    - [x] Import Memory Instances
+- [x] Allow Wasmite ... 
+    - [x] Export Python functions
+    - [x] Export Global Instances
+    - [x] Export Memory Instances
 - [x] More complex examples in testing folder
 - [ ] Receive community on how to improve
 
@@ -38,68 +38,80 @@ Examples:
 * [wasm](https://github.com/yusuf8ahmed/Wasmite/tree/examples/testing/wasm)
 * [wat](https://github.com/yusuf8ahmed/Wasmite/tree/examples/testing/wat)
 
-<!-- 
-```python
-#in testing/test_wasm.py
-import wasmite
-from wasmite import FuncType
-from wasmite import I32, I64
 
-# create a Test class the inherits wasmite.TestWasm
-class Test(wasmite.TestWasm):
+```python
+from wasmite import WasmiteCase, WasmModule
+from wasmite import FunctionTypes, Function, Global, Value, main
+from wasmite import I32
+
+def sum(x: int, y: int) -> int:
+    """ python function to be imported into WASM  """
+    return x + y
+
+class Test(WasmiteCase):
     # create a variable the hold all the functions from a specific wasm file.
-    exports = wasmite.wasm_module("test.wasm")
-    # create any amount of function that test you codes functionality
+    module = WasmModule("test_wasm.wasm")
+    # import python function into WASM 
+    # type annotations on the function is necessary 
+    module.register("math", {
+        "sum": Function(module.store, sum),
+        "seven": Global(module.store, Value.i32(7), mutable=True)
+    })
+    # start up the module and return the exports (this is mandatory)
+    exports = module.get_exports()
+    
     def test_add(self):
-        # test the "add" function in test.wasm
+        # test add function
         result = self.exports.add(1,2)
         self.assertEqual(result, 3) 
         
     def test_sub(self):
-        # test the "sub" function in test.wasm
-        result = self.exports.sub(2,2) # 2-2 = 0 != -1
-        self.assertEqual(result, -1)
-        
-    def test_sub_notequal(self):
-        # test the "sub" function in test.wasm
-        result = self.exports.sub(5,2) # 5-2 = 3 != -1
-        self.assertNotEqual(result, -1)
+        # test the sub function
+        result = self.exports.sub(2,2)
+        self.assertEqual(result, 0)
 
     def test_args_add(self):
         # check the types for results and parameter of the function "add"
         # param is I32, I32 and result is I32
         add_function = self.exports.add
-        self.checkFunctionTypes(add_function, FuncType([I32, I32], [I32])) # result will fail
+        self.assertTypes(add_function, FunctionTypes([I32, I32], [I32])) # result will fail
+        
+    def test_import_sum(self):
+        # test the imported python function sum.
+        sum_function = self.exports.addsum(5,2)
+        self.assertEqual(sum_function, 7)
+        
+    def test_global_read(self):
+        # test reading value of global
+        read_seven = self.exports.read_global()
+        self.assertEqual(read_seven, 7) 
+        
+    def test_global_write(self):
+        # test writing value of global
+        self.exports.write_global(5)
+        read_seven = self.exports.read_global()
+        self.assertEqual(read_seven, 5) 
         
 # Hi don't forget to add me         
 if __name__ == "__main__":
-    wasmite.main()
+    main()
 ``` 
 -->
 
-<!-- 
 Then you can then run this test like so:
 ```bash
-# make sure you are in /testing
-
+# make sure you are in examples/wasm
 $ python test_wasm.py
 
 test_add (__main__.Test) ... ok
 test_args_add (__main__.Test) ... ok
-test_sub (__main__.Test) ... FAIL
-test_sub_notequal (__main__.Test) ... ok
-
-======================================================================
-FAIL: test_sub (__main__.Test)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "test_wasm.py", line 18, in test_sub
-    self.assertEqual(result, -1)
-AssertionError: 0 != -1
+test_global_read (__main__.Test) ... ok
+test_global_write (__main__.Test) ... ok
+test_import_sum (__main__.Test) ... ok
+test_sub (__main__.Test) ... ok
 
 ----------------------------------------------------------------------
-Ran 4 tests in 0.001s
+Ran 6 tests in 0.001s
 
-FAILED (failures=1)
+OK
 ``` 
--->

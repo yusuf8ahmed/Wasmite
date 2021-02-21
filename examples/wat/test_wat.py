@@ -1,37 +1,37 @@
-from wasmite import Module, WasmiteCase
+from wasmite import WasmiteCase, WatModule
 from wasmite import Function, Global, Value, main
 
 def sum(x: int, y: int) -> int:
     return x + y
 
 class Test(WasmiteCase):
-    module = Module("test_wat.wat")
+    module = WatModule("test_wat.wat")
     module.register("math", {
         "sum": Function(module.store, sum),
         "seven": Global(module.store, Value.i32(7), mutable=True)
     })
-    module.start()
-    exports = module.exports
+    exports = module.get_exports()
     
     def test_add(self):
+        # test add function
         add_function = self.exports.add(1,2)
         self.assertEqual(add_function, 3)
         
     def test_sub(self):
+        # test sub function
         sub_function = self.exports.sub(1,2)
         self.assertEqual(sub_function, -1)
         
     def test_global_read(self):
-        # read value of global
-        read_seven = self.exports.read_g()
+        # test reading value of global
+        read_seven = self.exports.read_global()
         self.assertEqual(read_seven, 7) 
         
     def test_global_write(self):
-        # write value of global
-        self.exports.write_g(5)
-        read_seven = self.exports.read_g()
-        self.assertEqual(read_seven, 5) 
+        # text writing value of global
+        self.exports.write_global(5)
+        read_global = self.exports.read_global()
+        self.assertEqual(read_global, 5) 
 
-        
 if __name__ == "__main__":
     main()

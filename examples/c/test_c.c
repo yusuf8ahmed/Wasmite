@@ -5,9 +5,9 @@
 
 int even(int value){
     if (value % 2 == 0) {
-        return 1; // true: 1
+        return 1;
     } else {
-        return 0; // false: 0
+        return 0;
     }
 }
 
@@ -16,6 +16,8 @@ int squared(int value){
 }
 
 int main() {
+    printf("\n");
+
     int number = even(3);
     printf("even(3): %d\n", number);
 

@@ -1,16 +1,9 @@
-from operator import attrgetter
-from os import path
 from setuptools import setup, find_packages
 
-VERSION = "0.1.5"
-
-def read(fname):
-    return open(path.join(path.dirname(__file__), fname)).read()
-
-def from_here(relative_path):
-    return path.join(path.dirname(__file__), relative_path)
+VERSION = "0.2.0"
 
 # source env/bin/activate
+# python setup.py develop
 
 # rm -rf build dist wasmite.egg-info
 # python setup.py sdist bdist_wheel 
@@ -22,9 +15,9 @@ setup(
     version=VERSION,
     author="Yusuf Ahmed",
     author_email="yusufahmed172@gmail.com",
-    packages=find_packages(exclude=['env', ".vscode"]),
+    packages=find_packages(),
     description="Wasmite: Webassembly is the future but now it has a testing toolchain",
-    long_description=read('Readme.md'),
+    long_description=open('Readme.md').read(),
     long_description_content_type="text/markdown",
     install_requires=['loguru', "wasmer>=1.0.0-alpha3", "wasmer-compiler-cranelift>=1.0.0-alpha3"],
     url="https://github.com/yusuf8ahmed/Wasmite",

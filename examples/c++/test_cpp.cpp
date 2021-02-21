@@ -20,6 +20,8 @@ extern "C" {
   }
 
   int main() {
+    printf("\n");
+
     int number = addone(3);
     printf("addone(3): %d\n", number);
 

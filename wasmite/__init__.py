@@ -1,9 +1,19 @@
-from .__main__ import Module 
-from .__main__ import WasmiteCase
+from .globals import WasmiteCase
+from .globals import FunctionTypes
+from .globals import main
 
-from .__main__ import FuncType, Value
-from .__main__ import Function, Global, Memory, Table
-from .extension import I32, I64, F32, F64, V128, EXTERN_REF, FUNC_REF
+from .globals import I32
+from .globals import I64
+from .globals import F32
+from .globals import F64
+from .globals import V128 
+from .globals import EXTERN_REF 
+from .globals import FUNC_REF
 
-from .__main__ import main
+from .wasm import WasmModule
 from .wasi import WasiModule
+from .wat import WatModule
+
+from wasmer import Function
+from wasmer import Global
+from wasmer import Value
