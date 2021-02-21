@@ -1,14 +1,16 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 # source env/bin/activate
 # python setup.py develop
 
 # rm -rf build dist wasmite.egg-info
-# python setup.py sdist bdist_wheel 
+# python setup.py sdist bdist_wheel  
 # python -m twine upload --skip-existing dist/*
 # python -m twine upload dist/*
+
+# python setup.py install
 
 setup(
     name="wasmite",
