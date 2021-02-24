@@ -1,6 +1,6 @@
 from wasmite import WasmiteCase, WasmModule
 from wasmite import FunctionTypes, Function, Global, Value, main
-from wasmite import I32
+from wasmite import I32, I64
 
 def sum(x: int, y: int) -> int:
     """ python function to be imported into WASM  """
@@ -32,7 +32,7 @@ class Test(WasmiteCase):
         # check the types for results and parameter of the function "add"
         # param is I32, I32 and result is I32
         add_function = self.exports.add
-        self.assertTypes(add_function, FunctionTypes([I32, I32], [I32])) # result will fail
+        self.assertTypes(add_function, FunctionTypes([I32, I32], [I32])) #
         
     def test_import_sum(self):
         # test the imported python function sum.
